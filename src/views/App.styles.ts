@@ -4,6 +4,8 @@ export const StyledContent = styled.main`
   margin: auto;
   width: 100%;
   display: flex;
+  height: 100vh;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: ${(props) => props.theme.layout.maxWidth};
@@ -12,7 +14,7 @@ export const StyledContent = styled.main`
 
 export const StyledGlobal = createGlobalStyle`
   body {
-    background-color: ${(props) => props.theme.colors.lighter.base};
+    background-color: ${(props) => props.theme.colors.lighter.bg};
     color: ${(props) => props.theme.colors.lighter.contrast};
   }
   html {

@@ -1,12 +1,13 @@
 export const theme = {
   colors: {
     primary: {
-      base: '#000',
+      base: '#46003f',
+      highlight: '#5e004f',
       contrast: '#fff',
     },
     secondary: {
-      base: '#fff',
-      contrast: '#000',
+      base: '#47b27a',
+      contrast: '#fff',
     },
     darker: {
       base: '#000',
@@ -14,7 +15,8 @@ export const theme = {
     },
     lighter: {
       base: '#fff',
-      contrast: '#000',
+      bg: '#f7f6f5',
+      contrast: '#485A5A',
     },
     success: {
       base: '#4caf50',
@@ -26,24 +28,23 @@ export const theme = {
     },
   },
   layout: {
-    maxWidth: '1400px',
-    vGap: '20px',
-    hGap: '10px',
+    maxWidth: '900px',
+    vGap: '10px',
+    hGap: '20px',
   },
   shadows: {
-    base: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;',
-    hover:
-      'rgba(60, 64, 67, 0.4) 0px 1px 2px 0px, rgba(60, 64, 67, 0.2) 0px 1px 3px 1px;',
+    base: 'none',
+    hover: 'none',
   },
   fontSizes: {
     xl: '30px',
     l: '25px',
     m: '20px',
     s: '16px',
-    sx: '14px',
+    xs: '14px',
   },
   borderRadius: {
-    base: '0px',
+    base: '15px',
   },
   easings: {
     wiggle: 'cubic-bezier(0.74, -0.6, 0.225, 1.59)',
