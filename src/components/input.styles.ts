@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const StyledFormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: ${(p) => p.theme.layout.vGap};
+`;
+
 export const StyledLabel = styled.label`
   all: unset;
   padding: calc(${(p) => p.theme.layout.vGap} / 4) calc(${(p) => p.theme.layout.hGap} / 4);
@@ -37,4 +44,10 @@ export const StyledForm = styled.form`
   align-items: start;
   justify-content: start;
   gap: ${(p) => p.theme.layout.vGap};
+`;
+
+export const StyledError = styled.div`
+  color: ${(props) => props.theme.colors.error.base};
+  font-size: ${(props) => props.theme.fontSizes.xs};
+  margin-top: calc(${(p) => p.theme.layout.vGap} / 2);
 `;

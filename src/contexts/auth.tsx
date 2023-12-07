@@ -20,14 +20,20 @@ export interface JWTPayload {
 type AuthHandlers = {
   login: (email: string, password: string) => void;
   logout: () => void;
+  loading: boolean;
+  error: string;
+  setError: (error: string) => void;
 };
 
 export const AuthContext = createContext<(AuthData & AuthHandlers) | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode | ReactNode[] }) => {
   const [auth, setAuth] = useState<AuthData | null>(null);
-  console.log({ auth });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
   const login = (email: string, password: string) => {
+    setLoading(true);
     fetch(`${API_ENDPOINT}/auth`, {
       method: 'POST',
       body: JSON.stringify({ email, password }),
@@ -37,12 +43,16 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactNode[] }
     })
       .then((response) => response.json())
       .then(({ access_token }) => {
-        console.log({ access_token });
         const user = jwtDecode<JWTPayload>(access_token);
         localStorage.setItem('token', access_token);
         setAuth({ token: access_token, user });
+        setError('');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setError('Invalid credentials');
+        console.log(error);
+      })
+      .finally(() => setLoading(false));
   };
 
   const logout = () => {
@@ -60,7 +70,7 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactNode[] }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ login, logout, ...auth }}>
+    <AuthContext.Provider value={{ login, logout, loading, error, setError, ...auth }}>
       {children}
     </AuthContext.Provider>
   );

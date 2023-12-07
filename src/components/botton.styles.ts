@@ -11,9 +11,14 @@ export const StyledButton = styled.button`
   color: ${(props) => props.theme.colors.primary.contrast};
   text-align: center;
 
-  &:hover {
+  &:hover:not(:disabled) {
     cursor: pointer;
     box-shadow: ${(p) => p.theme.shadows.hover};
     background-color: ${(props) => props.theme.colors.primary.highlight};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${(props) => props.theme.colors.lighter.contrast};
   }
 `;

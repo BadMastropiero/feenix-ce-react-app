@@ -2,7 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { StyledButton } from '../../../components/botton.styles';
-import { StyledInput, StyledLabel } from '../../../components/input.styles';
+import {
+  StyledError,
+  StyledFormGroup,
+  StyledInput,
+  StyledLabel,
+} from '../../../components/input.styles';
 import { useAuth } from '../../../contexts/auth';
 
 const StyledLogin = styled.div`
@@ -15,6 +20,7 @@ const StyledLogin = styled.div`
 const StyledLoginCard = styled.div`
   display: flex;
   flex-direction: column;
+  width: 300px;
   margin: auto;
   padding: ${(p) => p.theme.layout.vGap} ${(p) => p.theme.layout.hGap};
   border-radius: ${(p) => p.theme.borderRadius.base};
@@ -45,19 +51,22 @@ const Login = () => {
         <br />
 
         <StyledLoginForm onSubmit={onSubmit}>
-          <div>
+          <StyledFormGroup>
             <StyledLabel htmlFor="email">Email</StyledLabel>
             <StyledInput type="email" id="email" name="email" />
-          </div>
+          </StyledFormGroup>
 
-          <div>
+          <StyledFormGroup>
             <StyledLabel htmlFor="password">Password</StyledLabel>
             <StyledInput type="password" id="password" name="password" />
-          </div>
+          </StyledFormGroup>
 
+          {auth?.error && <StyledError>{auth?.error}</StyledError>}
           <br />
 
-          <StyledButton type="submit">Login</StyledButton>
+          <StyledButton disabled={auth.loading} type="submit">
+            Login
+          </StyledButton>
         </StyledLoginForm>
       </StyledLoginCard>
     </StyledLogin>
