@@ -4,7 +4,7 @@ export const StyledContent = styled.main`
   margin: auto;
   width: 100%;
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 100px);
   flex-direction: column;
   justify-content: center;
   align-items: center;

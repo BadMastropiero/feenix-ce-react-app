@@ -38,6 +38,7 @@ const StyledMessage = styled.div<{ $received: boolean }>`
       ? props.theme.colors.secondary.contrast
       : props.theme.colors.lighter.contrast};
   margin-bottom: ${(p) => p.theme.layout.vGap};
+  overflow: auto;
 `;
 
 const StyledMessageText = styled.div`
