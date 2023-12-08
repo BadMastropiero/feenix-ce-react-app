@@ -20,27 +20,20 @@ function Chat() {
     }
   }, [auth]);
 
-  const Authenticate = () => {
-    if (auth?.user) {
-      return (
-        <>
-          <Messages messages={messages} setMessages={setMessages} />
-          <Sender setMessages={setMessages} />
-          <History />
-        </>
-      );
-    }
-
-    if (auth?.createRegister) return <Register />;
-
-    return <Login />;
-  };
-
   return (
     <>
       <Navbar />
       <StyledContent>
-        <Authenticate />
+        {auth?.user && (
+          <>
+            <Messages messages={messages} setMessages={setMessages} />
+            <Sender setMessages={setMessages} />
+            <History />
+          </>
+        )}
+
+        {!auth.user && auth?.createRegister && <Register />}
+        {!auth.user && !auth?.createRegister && <Login />}
       </StyledContent>
     </>
   );
