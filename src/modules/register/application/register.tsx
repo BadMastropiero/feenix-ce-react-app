@@ -11,23 +11,35 @@ import {
 } from '../../../components/input.styles';
 import { useAuth } from '../../../contexts/auth';
 
-const Login = () => {
+const Register = () => {
   const auth = useAuth();
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const firstName = (event.target as HTMLFormElement).firstName.value;
+    const lastName = (event.target as HTMLFormElement).lastName.value;
     const email = (event.target as HTMLFormElement).email.value;
     const password = (event.target as HTMLFormElement).password.value;
-    auth?.login(email, password);
-  };
 
+    auth?.register(firstName, lastName, email, password);
+  };
   return (
     <StyledContainer>
       <StyledCard>
-        <h3>Login</h3>
+        <h3> Register </h3>
         <br />
 
-        <StyledForm onSubmit={onSubmit}>
+        <StyledForm onSubmit={onSubmit} autoComplete="off">
+          <StyledFormGroup>
+            <StyledLabel htmlFor="First Name">First Name</StyledLabel>
+            <StyledInput type="text" id="firstName" name="firstName" />
+          </StyledFormGroup>
+
+          <StyledFormGroup>
+            <StyledLabel htmlFor="Last Name">Last Name</StyledLabel>
+            <StyledInput type="text" id="lastName" name="lastName" />
+          </StyledFormGroup>
+
           <StyledFormGroup>
             <StyledLabel htmlFor="email">Email</StyledLabel>
             <StyledInput type="email" id="email" name="email" />
@@ -42,7 +54,7 @@ const Login = () => {
           <br />
 
           <StyledButton disabled={auth.loading} type="submit">
-            Login
+            Register
           </StyledButton>
         </StyledForm>
       </StyledCard>
@@ -50,4 +62,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

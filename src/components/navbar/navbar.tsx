@@ -37,7 +37,17 @@ function Navbar() {
               Logout
             </StyledButton>
           </>
-        ) : null}
+        ) : (
+          <>
+            <StyledButton
+              onClick={() => {
+                auth?.isRegister();
+              }}
+            >
+              Register
+            </StyledButton>
+          </>
+        )}
       </StyledNavBar>
     </StyledNavHeader>
   );
