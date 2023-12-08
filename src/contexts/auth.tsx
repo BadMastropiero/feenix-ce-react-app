@@ -26,7 +26,7 @@ type AuthHandlers = {
   ) => void;
   login: (email: string, password: string) => void;
   logout: () => void;
-  isRegister: () => void;
+  isRegister: (v: boolean) => void;
   loading: boolean;
   createRegister: boolean;
   error: string;
@@ -98,8 +98,8 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactNode[] }
       });
   };
 
-  const isRegister = () => {
-    setCreateRegister(true);
+  const isRegister = (value: boolean) => {
+    setCreateRegister(value);
   };
 
   const logout = () => {

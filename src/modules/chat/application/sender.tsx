@@ -26,7 +26,9 @@ const Sender = ({ setMessages }: Props) => {
     if (!greeted) {
       socket.emit('hello', '');
     }
-    socket.off('hello');
+    return () => {
+      socket.off('hello');
+    };
   }, [socket]);
 
   return (

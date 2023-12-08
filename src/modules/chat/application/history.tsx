@@ -104,25 +104,23 @@ const trimText = (text: string) => {
 const History = () => {
   const socket = useContext(SocketContext);
 
-  const { data, error } = useQuery<HistoryItem[], any>('history', () => {
-    return fetch(`${API_ENDPOINT}/chat/conversations`, {
+  const { data, error } = useQuery('history', async (): Promise<HistoryItem[]> => {
+    const response = await fetch(`${API_ENDPOINT}/chat/conversationss`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-    }).then((res) => {
-      return res.json() as Promise<HistoryItem[]>;
     });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
   });
 
   const restore = (item: HistoryItem) => {
     socket?.emit('restore', { conversationId: item.id });
   };
-
-  console.log('data', data);
-
-  console.log('error', error);
 
   if (!data || data.length == +0 || error) return null;
   return (

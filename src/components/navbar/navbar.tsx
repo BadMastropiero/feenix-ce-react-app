@@ -43,10 +43,10 @@ function Navbar() {
           <>
             <StyledButton
               onClick={() => {
-                auth?.isRegister();
+                auth?.isRegister(!auth.createRegister);
               }}
             >
-              Register
+              {!auth.createRegister ? 'Register' : 'Login'}
             </StyledButton>
           </>
         )}
