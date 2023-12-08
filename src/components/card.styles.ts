@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { slideInAnim } from '../styles/mixins';
+
 export const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,4 +18,5 @@ export const StyledCard = styled.div`
   border-radius: ${(p) => p.theme.borderRadius.base};
   background-color: ${(props) => props.theme.colors.lighter.base};
   gap: ${(p) => p.theme.layout.vGap};
+  ${slideInAnim}
 `;
