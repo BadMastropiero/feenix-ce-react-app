@@ -86,8 +86,13 @@ const Messages = ({ messages, setMessages }: Props) => {
       });
     });
 
+    socket.on('hello_back', () => {
+      setMessages([]);
+    });
+
     return () => {
       socket.off('message');
+      socket.off('hello_back');
     };
   }, [socket]);
 
