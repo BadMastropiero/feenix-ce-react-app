@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
@@ -104,23 +104,38 @@ const trimText = (text: string) => {
 const History = () => {
   const socket = useContext(SocketContext);
 
-  const { data, error } = useQuery('history', async (): Promise<HistoryItem[]> => {
-    const response = await fetch(`${API_ENDPOINT}/chat/conversationss`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  });
+  const { data, error, refetch } = useQuery(
+    'history',
+    async (): Promise<HistoryItem[]> => {
+      const response = await fetch(`${API_ENDPOINT}/chat/conversations`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    },
+  );
 
   const restore = (item: HistoryItem) => {
     socket?.emit('restore', { conversationId: item.id });
   };
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on('hello_back', () => {
+      refetch();
+    });
+
+    return () => {
+      socket.off('hello_back');
+    };
+  }, [socket]);
 
   if (!data || data.length == +0 || error) return null;
   return (
