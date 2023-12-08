@@ -62,7 +62,10 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactNode[] }
         setError('Invalid credentials');
         console.log(error);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        setError('');
+      });
   };
 
   const register = (
