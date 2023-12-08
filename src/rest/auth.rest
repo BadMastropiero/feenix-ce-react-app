@@ -1,0 +1,30 @@
+### Login
+POST {{host}}/auth
+Content-Type: application/json
+
+{
+  "email": "john@doe.com",
+  "password": "123456"
+}
+
+> {%
+    client.global.set("auth_token", response.body.access_token);
+    client.global.set("refresh_token", response.body.refresh_token);
+%}
+
+### Refresh Token
+POST {{host}}/auth/refresh
+Content-Type: application/json
+
+{
+    "refresh_token": "{{refresh_token}}"
+}
+
+> {%
+    client.global.set("auth_token", response.body.access_token);
+%}
+
+### Profile
+GET {{host}}/auth/profile
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

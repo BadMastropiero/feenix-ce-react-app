@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
-import { API_ENDPOINT } from '../config';
+import { API_ENDPOINT, TOKEN_REFRESH_INTERVAL } from '../config';
 
 type AuthData = {
   token?: string;
@@ -51,9 +51,10 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactNode[] }
       },
     })
       .then((response) => response.json())
-      .then(({ access_token }) => {
+      .then(({ access_token, refresh_token }) => {
         const user = jwtDecode<JWTPayload>(access_token);
         localStorage.setItem('token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
         setAuth({ token: access_token, user });
         setError('');
       })
@@ -100,7 +101,32 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactNode[] }
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
     setAuth(null);
+  };
+
+  const refresh = async () => {
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (!refreshToken) return;
+    setLoading(true);
+    try {
+      const req = await fetch(`${API_ENDPOINT}/auth/refresh`, {
+        method: 'POST',
+        body: JSON.stringify({ refresh_token: refreshToken }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const { access_token } = await req.json();
+      const user = jwtDecode<JWTPayload>(access_token);
+      localStorage.setItem('token', access_token);
+      setAuth({ token: access_token, user });
+      setError('');
+    } catch {
+      setError('Invalid credentials');
+      localStorage.removeItem('refresh_token');
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -110,6 +136,18 @@ export const AuthProvider = ({ children }: { children: ReactNode | ReactNode[] }
       const user = jwtDecode<JWTPayload>(token);
       setAuth({ token, user });
     }
+  }, []);
+
+  useEffect(() => {
+    // Handle token rotation
+    refresh();
+
+    const i = setInterval(() => {
+      console.log('Refreshing token');
+      refresh();
+    }, TOKEN_REFRESH_INTERVAL * 1000);
+
+    return () => clearInterval(i);
   }, []);
 
   return (

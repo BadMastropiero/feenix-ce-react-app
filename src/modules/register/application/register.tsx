@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyledButton } from '../../../components/botton.styles';
+import { StyledButton } from '../../../components/button.styles';
 import { StyledCard, StyledContainer } from '../../../components/card.styles';
 import { StyledForm } from '../../../components/form.styles';
 import {

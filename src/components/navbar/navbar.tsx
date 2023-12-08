@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { useAuth } from '../../contexts/auth';
-import { StyledButton } from '../botton.styles';
+import { StyledButton } from '../button.styles';
 
 const StyledNavHeader = styled.header`
   display: flex;
@@ -9,6 +9,8 @@ const StyledNavHeader = styled.header`
   padding: ${(p) => p.theme.layout.vGap} ${(p) => p.theme.layout.hGap};
   background-color: ${(props) => props.theme.colors.lighter.base};
   height: 80px;
+  z-index: 1000;
+  position: sticky;
 `;
 
 const StyledNavBar = styled.nav`

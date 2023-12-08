@@ -33,8 +33,9 @@ export const theme = {
     hGap: '20px',
   },
   shadows: {
-    base: 'none',
-    hover: 'none',
+    base: '',
+    hover: '',
+    extra: '0 -10px 100px 0px rgba(125, 0, 115, 0.5)',
   },
   fontSizes: {
     xl: '30px',

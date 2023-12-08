@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
 export const StyledContent = styled.main`
+  position: relative;
   margin: auto;
   width: 100%;
   display: flex;
@@ -17,8 +18,31 @@ export const StyledGlobal = createGlobalStyle`
     background-color: ${(props) => props.theme.colors.lighter.bg};
     color: ${(props) => props.theme.colors.lighter.contrast};
   }
+
   html {
     /* overflow-y: auto; */
     scrollbar-gutter: stable;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: ${(p) => p.theme.colors.lighter.bg};
+    border-radius: ${(p) => p.theme.borderRadius.base};
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${(p) => p.theme.colors.lighter.contrast};
+    border-radius: ${(p) => p.theme.borderRadius.base};
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${(p) => p.theme.colors.primary.base};
   }
 `;

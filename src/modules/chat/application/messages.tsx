@@ -3,6 +3,7 @@ import Markdown from 'react-markdown';
 import styled from 'styled-components';
 
 import { SocketContext } from '../../../contexts/socket.io';
+import { slideInAnim } from '../../../styles/mixins';
 import { Message } from '../domain/types';
 
 const StyledMessagesWrapper = styled.div`
@@ -39,6 +40,8 @@ const StyledMessage = styled.div<{ $received: boolean }>`
       : props.theme.colors.lighter.contrast};
   margin-bottom: ${(p) => p.theme.layout.vGap};
   overflow: auto;
+
+  ${slideInAnim}
 `;
 
 const StyledMessageText = styled.div`
@@ -86,8 +89,18 @@ const Messages = ({ messages, setMessages }: Props) => {
       });
     });
 
+    socket.on('hello_back', () => {
+      setMessages([]);
+    });
+
+    socket.on('restore_back', () => {
+      setMessages([]);
+    });
+
     return () => {
       socket.off('message');
+      socket.off('hello_back');
+      socket.off('restore_back');
     };
   }, [socket]);
 

@@ -10,6 +10,7 @@ export const StyledButton = styled.button`
   background-color: ${(props) => props.theme.colors.primary.base};
   color: ${(props) => props.theme.colors.primary.contrast};
   text-align: center;
+  transition: all 0.3s ${(p) => p.theme.easings.base};
 
   &:hover:not(:disabled) {
     cursor: pointer;
