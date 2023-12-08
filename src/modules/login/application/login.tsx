@@ -53,12 +53,17 @@ const Login = () => {
         <StyledLoginForm onSubmit={onSubmit}>
           <StyledFormGroup>
             <StyledLabel htmlFor="email">Email</StyledLabel>
-            <StyledInput type="email" id="email" name="email" />
+            <StyledInput type="email" id="email" name="email" autoComplete="email" />
           </StyledFormGroup>
 
           <StyledFormGroup>
             <StyledLabel htmlFor="password">Password</StyledLabel>
-            <StyledInput type="password" id="password" name="password" />
+            <StyledInput
+              type="password"
+              id="password"
+              name="password"
+              autoComplete="current_password"
+            />
           </StyledFormGroup>
 
           {auth?.error && <StyledError>{auth?.error}</StyledError>}

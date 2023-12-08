@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 
 import { StyledButton } from '../../../components/botton.styles';
 import { StyledArea, StyledForm } from '../../../components/input.styles';
@@ -11,8 +11,21 @@ interface Props {
 
 const Sender = ({ setMessages }: Props) => {
   const socket = useContext(SocketContext);
-
   const [message, setMessage] = useState<string>('');
+  const [greeted, setGreeted] = useState(false);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on('hello_back', () => {
+      setGreeted(true);
+    });
+
+    if (!greeted) {
+      socket.emit('hello', '');
+    }
+    socket.off('hello');
+  }, [socket]);
 
   return (
     <StyledForm
