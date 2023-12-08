@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 
-import { StyledButton } from '../../../components/botton.styles';
+import { StyledButton } from '../../../components/button.styles';
 import { StyledArea, StyledForm } from '../../../components/input.styles';
 import { useAuth } from '../../../contexts/auth';
 import { SocketContext } from '../../../contexts/socket.io';

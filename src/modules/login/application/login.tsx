@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { StyledButton } from '../../../components/botton.styles';
+import { StyledButton } from '../../../components/button.styles';
 import {
   StyledError,
   StyledFormGroup,
@@ -9,6 +9,7 @@ import {
   StyledLabel,
 } from '../../../components/input.styles';
 import { useAuth } from '../../../contexts/auth';
+import { slideInAnim } from '../../../styles/mixins';
 
 const StyledLogin = styled.div`
   display: flex;
@@ -26,6 +27,7 @@ const StyledLoginCard = styled.div`
   border-radius: ${(p) => p.theme.borderRadius.base};
   background-color: ${(props) => props.theme.colors.lighter.base};
   gap: ${(p) => p.theme.layout.vGap};
+  ${slideInAnim}
 `;
 
 const StyledLoginForm = styled.form`

@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
 export const StyledContent = styled.main`
+  position: relative;
   margin: auto;
   width: 100%;
   display: flex;

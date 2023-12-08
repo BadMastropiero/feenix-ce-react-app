@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import Navbar from '../components/navbar/navbar';
 import { useAuth } from '../contexts/auth';
+import History from '../modules/chat/application/history';
 import Messages from '../modules/chat/application/messages';
 import Sender from '../modules/chat/application/sender';
 import { Message } from '../modules/chat/domain/types';
@@ -26,6 +27,7 @@ function Chat() {
           <>
             <Messages messages={messages} setMessages={setMessages} />
             <Sender setMessages={setMessages} />
+            <History />
           </>
         ) : (
           <Login />
